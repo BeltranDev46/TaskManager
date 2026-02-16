@@ -51,7 +51,7 @@ export default function LoginPage() {
     </div>
 
     {/* Mitad derecha: formulario */}
-    <div className="bg-[#D45715] flex flex-col items-center justify-center px-6 py-12">
+    <div className="bg-[#D45715] flex flex-col items-center justify-center px-6 py-12 rounded-xl">
       <div className="w-full max-w-md space-y-6">
         {/* Logo pequeño arriba */}
         <div className="flex justify-center">
@@ -82,9 +82,9 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && <p className="text-xl text-red-500">{error}</p>}
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Entrando..." : "Entrar"}
+            {loading ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
 

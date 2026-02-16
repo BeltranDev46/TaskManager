@@ -1,5 +1,6 @@
-import { getIronSession, SessionOptions } from 'iron-session';
-import { cookies } from 'next/headers';
+import { getIronSession, type SessionOptions } from "iron-session";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
 export interface SessionData {
   userId: string;
@@ -8,34 +9,31 @@ export interface SessionData {
   isLoggedIn: boolean;
 }
 
-const defaultSession: SessionData = {
-  userId: '',
-  username: '',
-  email: '',
-  isLoggedIn: false,
-};
-
-const sessionOptions: SessionOptions = {
+export const sessionOptions: SessionOptions = {
   password: process.env.SESSION_SECRET!,
-  cookieName: 'task-manager-session',
+  cookieName: "task-manager-session",
   cookieOptions: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax' as const,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
     maxAge: 60 * 60 * 24 * 7, // 7 days
-    path: '/',
+    path: "/",
   },
 };
 
-export async function getSession() {
-  const cookieStore = await cookies();
+// Esta función ahora maneja ambos casos: API Routes y Server Components
+export async function getSession(req?: NextRequest, res?: NextResponse) {
+  if (req && res) {
+    // Caso: Route Handler (API)
+    return getIronSession<SessionData>(req, res, sessionOptions);
+  }
+  // Caso: Server Component
+  const cookieStore = cookies();
   return getIronSession<SessionData>(cookieStore, sessionOptions);
 }
 
 export async function requireAuth() {
   const session = await getSession();
-  if (!session.isLoggedIn || !session.userId) {
-    return null;
-  }
+  if (!session.isLoggedIn || !session.userId) return null;
   return session;
 }

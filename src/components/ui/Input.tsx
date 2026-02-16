@@ -12,7 +12,7 @@ export function Input({ className, label, error, id, ...props }: InputProps) {
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-g font-medium text-gray-700 mb-1"
+          className="block text-xl font-medium text-gray-700 mb-1"
         >
           {label}
         </label>
