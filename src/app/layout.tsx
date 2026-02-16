@@ -2,8 +2,13 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Task Manager',
-  description: 'Gestiona tus proyectos y tareas',
+  title: 'TaskFlow',
+  description: 'Gestiona tus proyectos y tareas de forma simple',
+  icons: {
+    icon: "/favicon.svg", 
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

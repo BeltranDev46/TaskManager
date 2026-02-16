@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
 import Link from 'next/link';
+import { Logo } from '@/components/ui/Logo';
 
 export default async function HomePage() {
   const session = await getSession();
@@ -9,7 +10,9 @@ export default async function HomePage() {
   }
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 p-8">
-      <h1 className="text-3xl font-bold">Task Manager</h1>
+      <div className="mb-2">
+        <Logo height={64} />
+      </div>
       <p className="text-gray-600 text-center max-w-md">
         Gestiona tus proyectos y tareas de forma simple y eficiente.
       </p>

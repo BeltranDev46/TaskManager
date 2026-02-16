@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { Logo } from '@/components/ui/Logo';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -39,8 +40,11 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-4">
+    <main className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md">
+        <div className="flex justify-center mb-6">
+          <Logo height={48} />
+        </div>
         <h1 className="text-2xl font-bold text-center mb-6">Crear cuenta</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input

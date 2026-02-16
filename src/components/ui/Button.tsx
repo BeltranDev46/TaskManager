@@ -14,9 +14,10 @@ export function Button({
   return (
     <button
       className={cn(
-        'rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+        'rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg',
         {
-          'bg-blue-600 text-white hover:bg-blue-700': variant === 'primary',
+          // Primary: tu color #1E9A63
+          'bg-[#1E9A63] text-white hover:bg-[#004D2B]': variant === 'primary',
           'bg-gray-200 text-gray-900 hover:bg-gray-300': variant === 'secondary',
           'bg-red-600 text-white hover:bg-red-700': variant === 'danger',
           'bg-transparent hover:bg-gray-100': variant === 'ghost',
@@ -30,3 +31,4 @@ export function Button({
     />
   );
 }
+

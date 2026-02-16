@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { Logo } from '@/components/ui/Logo';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard' },
@@ -30,7 +31,9 @@ export function AppLayout({
     <div className="min-h-screen flex">
       <aside className="w-56 bg-gray-900 text-white flex flex-col">
         <div className="p-4 border-b border-gray-700">
-          <h2 className="font-bold text-lg">Task Manager</h2>
+          <Link href="/dashboard" className="block mb-2">
+            <Logo className="brightness-0 invert" height={32} />
+          </Link>
           <p className="text-sm text-gray-400 truncate">{username}</p>
         </div>
         <nav className="flex-1 p-2">
@@ -60,7 +63,7 @@ export function AppLayout({
       <div className="flex-1 flex flex-col">
         <header className="h-14 border-b border-gray-200 flex items-center px-6 bg-white">
           <h1 className="font-semibold text-gray-800">
-            {navItems.find((i) => i.href === pathname)?.label ?? 'Task Manager'}
+            {navItems.find((i) => i.href === pathname)?.label ?? 'taskFlow'}
           </h1>
         </header>
         <main className="flex-1 p-6 overflow-auto">{children}</main>

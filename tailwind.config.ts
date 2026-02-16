@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
@@ -8,9 +8,17 @@ const config: Config = {
     './src/features/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#1E9A63',
+          hover: '#168D5A',
+          focus: '#137047',
+        },
+      },
+    },
   },
   plugins: [],
-};
+}
 
-export default config;
+export default config
