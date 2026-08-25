@@ -56,6 +56,7 @@ export function createTask(userId: string, input: CreateTaskInput) {
       dueDate: parseDate(input.dueDate),
       estimatedHours: input.estimatedHours ?? null,
       actualHours: input.actualHours ?? null,
+      notes: input.notes ?? null,
     },
     include: { project: { select: { id: true, name: true } } },
   });
@@ -104,6 +105,18 @@ export async function getTaskStats(userId: string) {
     }),
   ]);
   return { total, completed, pending, overdue };
+}
+
+export function getPendingTasks(userId: string, limit: number = 5) {
+  return prisma.task.findMany({
+    where: {
+      userId,
+      status: { in: ['PENDING', 'IN_PROGRESS'] },
+    },
+    orderBy: [{ dueDate: 'asc' }, { createdAt: 'desc' }],
+    take: limit,
+    include: { project: { select: { id: true, name: true } } },
+  });
 }
 
 export async function getTasksByStatus(userId: string) {

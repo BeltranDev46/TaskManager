@@ -27,8 +27,8 @@ export default async function ReportsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-medium">Reportes</h2>
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Reportes</h2>
         <Link
           href="/api/export/tasks.csv"
           download="tasks-export.csv"
@@ -39,7 +39,7 @@ export default async function ReportsPage() {
       </div>
 
       <Card className="p-6 mb-8">
-        <h3 className="font-semibold mb-4">Resumen general</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">Resumen general</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
             <p className="text-sm text-gray-500">Total</p>
@@ -62,7 +62,7 @@ export default async function ReportsPage() {
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h3 className="font-semibold mb-4">Tareas por estado</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4">Tareas por estado</h3>
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200">
@@ -92,7 +92,7 @@ export default async function ReportsPage() {
         </Card>
 
         <Card className="p-6">
-          <h3 className="font-semibold mb-4">Tareas por proyecto</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4">Tareas por proyecto</h3>
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200">

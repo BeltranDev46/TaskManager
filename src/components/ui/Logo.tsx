@@ -15,7 +15,7 @@ export function LogoGrande({ className, height = 700, src = '/logoGrande.svg' }:
 
   if (error) {
     return (
-      <span className={`font-bold text-xl ${className}`} style={{ color: 'inherit' }}>
+      <span className={`font-bold text-xl ${className || ''}`} style={{ color: 'inherit' }}>
         taskFlow
       </span>
     );
@@ -25,9 +25,8 @@ export function LogoGrande({ className, height = 700, src = '/logoGrande.svg' }:
     <img
       src={src}
       alt="taskFlow"
-      height={height}
-      width="auto"
-      className={className}
+      style={{ height: `${height}px`, width: 'auto' }}
+      className={`object-contain ${className || ''}`}
       onError={() => setError(true)}
     />
   );
@@ -37,7 +36,7 @@ export function Logo({ className, height = 40, src = '/t.png' }: LogoProps) {
 
   if (error) {
     return (
-      <span className={`font-bold text-xl ${className}`} style={{ color: 'inherit' }}>
+      <span className={`font-bold text-xl ${className || ''}`} style={{ color: 'inherit' }}>
         taskFlow
       </span>
     );
@@ -47,9 +46,8 @@ export function Logo({ className, height = 40, src = '/t.png' }: LogoProps) {
     <img
       src={src}
       alt="taskFlow"
-      height={height}
-      width="auto"
-      className={className}
+      style={{ height: `${height}px`, width: 'auto' }}
+      className={`object-contain ${className || ''}`}
       onError={() => setError(true)}
     />
   );

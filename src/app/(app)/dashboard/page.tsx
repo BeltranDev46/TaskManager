@@ -1,57 +1,49 @@
 import { requireAuth } from '@/lib/auth';
-import { getTaskStats } from '@/lib/services/task.service';
+import { getPendingTasks } from '@/lib/services/task.service';
+import { prisma } from '@/lib/db';
 import { Card } from '@/components/ui/Card';
 import Link from 'next/link';
+import { DashboardTasks } from './DashboardTasks';
 
 export default async function DashboardPage() {
   const session = await requireAuth();
   if (!session) return null;
 
-  const stats = await getTaskStats(session.userId);
-
-  const cards = [
-    { label: 'Total tareas', value: stats.total, color: 'bg-blue-500' },
-    { label: 'Completadas', value: stats.completed, color: 'bg-green-500' },
-    { label: 'Pendientes', value: stats.pending, color: 'bg-amber-500' },
-    { label: 'Vencidas', value: stats.overdue, color: 'bg-red-500' },
-  ];
+  const [pendingTasks, projects] = await Promise.all([
+    getPendingTasks(session.userId, 50),
+    prisma.project.findMany({ where: { userId: session.userId }, select: { id: true, name: true } })
+  ]);
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-6">Resumen</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {cards.map((card) => (
-          <Card key={card.label} className="p-6">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-600">{card.label}</span>
-              <span
-                className={`w-3 h-3 rounded-full ${card.color}`}
-                aria-hidden
-              />
-            </div>
-            <p className="text-3xl font-bold mt-2">{card.value}</p>
+      <div className="flex flex-col gap-10 mb-8 w-full max-w-5xl mx-auto">
+        <DashboardTasks initialTasks={pendingTasks} projects={projects} />
+
+        <div className="w-full">
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold text-gray-800">Acciones Rápidas</h3>
+          </div>
+          <Card className="p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link
+              href="/tasks"
+              className="flex justify-center items-center px-4 py-2.5 bg-[#1E9A63] text-white font-medium rounded-lg hover:bg-[#168D5A] shadow-md shadow-[#1E9A63]/20 transition-all"
+            >
+              Ir a Tareas
+            </Link>
+            <Link
+              href="/projects"
+              className="flex justify-center items-center px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Ir a Proyectos
+            </Link>
+            <Link
+              href="/reports"
+              className="flex justify-center items-center px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Ver Reportes
+            </Link>
           </Card>
-        ))}
-      </div>
-      <div className="flex gap-4">
-        <Link
-          href="/tasks"
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Ir a Tareas
-        </Link>
-        <Link
-          href="/projects"
-          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-        >
-          Ir a Proyectos
-        </Link>
-        <Link
-          href="/reports"
-          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-        >
-          Ver Reportes
-        </Link>
+        </div>
       </div>
     </div>
   );

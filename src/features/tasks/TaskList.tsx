@@ -101,8 +101,8 @@ export function TaskList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-medium">Tareas</h2>
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Tareas</h2>
         <div className="flex gap-2">
           <a
             href="/api/export/tasks.csv"
@@ -176,7 +176,7 @@ export function TaskList() {
                 tasks.map((t) => (
                   <tr key={t.id} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="py-3 px-2">
-                      <span className="font-medium">{t.title}</span>
+                      <span className="text-lg font-bold text-gray-800">{t.title}</span>
                       {t.description && (
                         <p className="text-xs text-gray-500 truncate max-w-xs">
                           {t.description}

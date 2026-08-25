@@ -25,6 +25,7 @@ type Task = {
   id: string;
   title: string;
   description: string | null;
+  notes?: string | null;
   status: string;
   priority: string;
   dueDate: string | null;
@@ -55,6 +56,7 @@ export function TaskForm({
 }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [notes, setNotes] = useState('');
   const [status, setStatus] = useState('PENDING');
   const [priority, setPriority] = useState('MEDIUM');
   const [projectId, setProjectId] = useState('');
@@ -68,6 +70,7 @@ export function TaskForm({
     if (task) {
       setTitle(task.title);
       setDescription(task.description ?? '');
+      setNotes(task.notes ?? '');
       setStatus(task.status);
       setPriority(task.priority);
       setProjectId(task.projectId ?? task.project?.id ?? '');
@@ -85,6 +88,7 @@ export function TaskForm({
       const body = {
         title,
         description: description || undefined,
+        notes: notes || undefined,
         status,
         priority,
         projectId: projectId || null,
@@ -134,7 +138,14 @@ export function TaskForm({
             label="Descripción"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            rows={2}
+          />
+          <Textarea
+            label="Notas adicionales"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
             rows={3}
+            placeholder="Apunta aquí cualquier detalle o seguimiento necesario..."
           />
           <div className="grid grid-cols-2 gap-4">
             <Select

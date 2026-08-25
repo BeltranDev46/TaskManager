@@ -18,6 +18,7 @@ export const createTaskSchema = z.object({
   dueDate: z.union([z.string(), z.date()]).optional().nullable(),
   estimatedHours: z.number().min(0).optional().nullable(),
   actualHours: z.number().min(0).optional().nullable(),
+  notes: z.string().max(5000).optional().nullable(),
 });
 
 export const updateTaskSchema = createTaskSchema.partial();

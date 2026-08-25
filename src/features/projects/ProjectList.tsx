@@ -52,8 +52,8 @@ export function ProjectList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-lg font-medium">Proyectos</h2>
+      <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Proyectos</h2>
         <Button onClick={() => setShowForm(true)}>Nuevo proyecto</Button>
       </div>
 
@@ -74,7 +74,7 @@ export function ProjectList() {
           projects.map((p) => (
             <Card key={p.id} className="p-4 flex justify-between items-center">
               <div>
-                <h3 className="font-medium">{p.name}</h3>
+                <h3 className="text-lg font-bold text-gray-800">{p.name}</h3>
                 {p.description && (
                   <p className="text-sm text-gray-500 mt-1">{p.description}</p>
                 )}
